@@ -34,8 +34,6 @@
 #include <stdio.h>
 #include "ruby.h"
 
-// patch typo in v2.20f header file
-#define  DAQmxReadBinaryI32  DAQmxBaseReadBinaryI32
 #include "NIDAQmxBase.h"
 
 static VALUE dmxError = Qnil;   // Daqmxbase::Error
@@ -87,9 +85,6 @@ static VALUE dmxErrorCode(VALUE self)
     rb_define_method(dmxWarning, "code", dmxErrorCode, 0);
   }
 %};
-
-// patch typo in header file
-#define  DAQmxReadBinaryI32  DAQmxBaseReadBinaryI32
 
 %apply  unsigned long *OUTPUT { bool32 *isTaskDone, int32 *sampsPerChanRead,
   int32 *sampsPerChanWritten, uInt32 *value, uInt32 *data };

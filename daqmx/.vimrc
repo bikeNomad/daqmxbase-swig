@@ -1,8 +1,7 @@
-set path+=/usr/local/natinst/nidaqmxbase/include
-set path+=/usr/local/lib/site_ruby/1.8,/usr/local/lib/site_ruby/1.8/i486-linux,/usr/local/lib/site_ruby/1.8/i386-linux,/usr/local/lib/site_ruby,/usr/lib/ruby/1.8,/usr/lib/ruby/1.8/i486-linux,/usr/lib/ruby/1.8/i386-linux,.
-set path+=/usr/share/swig1.3/ruby,/usr/share/swig1.3
+set path+=/Applications/National\ Instruments/NI-DAQmx\ Base/includes
+set path+=/Users/ned/.rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0,/Users/ned/.rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby/2.2.0/x86_64-darwin14,/Users/ned/.rvm/rubies/ruby-2.2.1/lib/ruby/site_ruby,/Users/ned/.rvm/rubies/ruby-2.2.1/lib/ruby/vendor_ruby/2.2.0,/Users/ned/.rvm/rubies/ruby-2.2.1/lib/ruby/vendor_ruby/2.2.0/x86_64-darwin14,/Users/ned/.rvm/rubies/ruby-2.2.1/lib/ruby/vendor_ruby,/Users/ned/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0,/Users/ned/.rvm/rubies/ruby-2.2.1/lib/ruby/2.2.0/x86_64-darwin14
+set path+=/usr/local/Cellar/swig/3.0.8/share/swig/3.0.8/ruby,/usr/local/Cellar/swig/3.0.8/share/swig/3.0.8
 set makeprg=make\ -f\ Makefile.swig
-set isfname+=\ 
-set errorformat^=%f:%l:\ %m
+set errorformat^=%f:%l\|%c\|\ %m
 au BufNewFile,BufRead Makefile* setf make
 au BufNewFile,BufRead *.i setf swig

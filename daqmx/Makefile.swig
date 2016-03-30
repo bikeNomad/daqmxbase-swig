@@ -112,8 +112,7 @@ endif
 	echo >>$@ 'set path+=$(RUBYPATH)'
 	echo >>$@ 'set path+=$(SWIGPATH)'
 	echo >>$@ 'set makeprg=make\ -f\ Makefile.swig'
-	echo >>$@ 'set isfname+=\ '
-	echo >>$@ 'set errorformat^=%f:%l:\ %m'
+	echo >>$@ 'set errorformat^=%f:%l\|%c\|\ %m'
 	echo >>$@ 'au BufNewFile,BufRead Makefile* setf make'
 	echo >>$@ 'au BufNewFile,BufRead *.i setf swig'
 
@@ -161,4 +160,4 @@ debug: $(BUNDLE) testload.rb .gdbinit
 	echo >>$@ "handle SIGABRT stop"
 	gdb -x $@ $(RUBY)
 
-# vim: ft=make ts=2 sw=2
+# vim: ft=make ts=2 sw=2 noet
