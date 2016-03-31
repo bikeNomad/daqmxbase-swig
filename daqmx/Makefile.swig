@@ -124,7 +124,7 @@ dll: Makefile
 	$(MAKE) all
 
 htmldoc: $(WRAPPER)
-	rdoc -f html -a $(WRAPPER)
+	rdoc -f darkfish -a $(WRAPPER)
 
 install: Makefile
 	$(MAKE) install
