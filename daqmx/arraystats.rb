@@ -50,9 +50,11 @@ module Enumerable
 end
 
 if __FILE__ == $0
-  require 'test/unit'
+  require 'rubygems'
+  gem 'minitest'
+  require 'minitest/autorun'
 
-  class AS_TC < Test::Unit::TestCase
+  class AS_TC < MiniTest::Test
 
     def setup
       @a = (0..100).to_a

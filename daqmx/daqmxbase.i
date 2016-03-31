@@ -52,7 +52,7 @@ static void handle_DAQmx_error(int32 errCode)
   errorBufferSize += 30; // add room for prefix (10+length of %ld)
   errorBuffer = malloc(errorBufferSize);
   snprintf(errorBuffer, errorBufferSize,
-    ((errCode < 0) ? "Error %ld: " : "Warning %ld:"), errCode);
+    ((errCode < 0) ? "Error %d: " : "Warning %d:"), errCode);
   prefixSize = strlen(errorBuffer);
   prefixEnd = errorBuffer + prefixSize;
 
@@ -114,7 +114,7 @@ static VALUE dmxErrorCode(VALUE self)
     switch (rb_type($input))
     {
       case T_ARRAY:
-        len = RARRAY($input)->len;
+        len = RARRAY_LEN($input);
         $1 = realloc($1, sizeof($1_basetype)*(size_t)len);
         for (i = 0; i < len; i++)
         {
@@ -132,7 +132,7 @@ static VALUE dmxErrorCode(VALUE self)
               break;
 
             case T_FLOAT:
-              val = ($1_basetype)RFLOAT(v)->value;
+              val = ($1_basetype)RFLOAT_VALUE(v);
               break;
 
             default:
@@ -151,7 +151,7 @@ static VALUE dmxErrorCode(VALUE self)
         break;
 
       case T_FLOAT:
-        $1[0] = ($1_basetype)RFLOAT($input)->value;
+        $1[0] = ($1_basetype)RFLOAT_VALUE($input);
         break;
 
   Error:

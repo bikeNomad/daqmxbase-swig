@@ -104,10 +104,14 @@ DECLS=$(MODULE)_decls.i
 all: dll htmldoc .vimrc
 
 .vimrc: $(MAKEFILE_LIST)
-ifeq ($(CYGWIN_VIM),no)
-	echo  >$@ 'set path+=$(subst \ ,\\ ,$(subst \,\\,$(NI_WIN_INC_DIR)))'
+ifeq ($(OS),Windows_NT) # Win32
+	ifeq ($(CYGWIN_VIM),no)
+		echo  >$@ 'set path+=$(subst \ ,\\ ,$(subst \,\\,$(NI_WIN_INC_DIR)))'
+	else
+		echo  >$@ 'set path+=$(subst \,\\\,$(NI_INC_DIR))'
+	endif
 else
-	echo  >$@ 'set path+=$(subst \,\\\,$(NI_INC_DIR))'
+	echo  >$@ 'set path+=$(subst \ ,\\ ,$(NI_INC_DIR))'
 endif
 	echo >>$@ 'set path+=$(RUBYPATH)'
 	echo >>$@ 'set path+=$(SWIGPATH)'
