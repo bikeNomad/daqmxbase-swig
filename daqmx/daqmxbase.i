@@ -49,7 +49,7 @@ static void handle_DAQmx_error(int32 errCode)
     return;
 
   errorBufferSize = (size_t)DAQmxBaseGetExtendedErrorInfo(NULL, 0);
-  errorBufferSize += 30; // add room for prefix (10+length of %ld)
+  errorBufferSize += 50; // add room for prefix (10+length of %ld)
   errorBuffer = malloc(errorBufferSize);
   snprintf(errorBuffer, errorBufferSize,
     ((errCode < 0) ? "Error %d: " : "Warning %d:"), errCode);
@@ -89,7 +89,7 @@ static VALUE dmxErrorCode(VALUE self)
 %apply  unsigned long *OUTPUT { bool32 *isTaskDone, int32 *sampsPerChanRead,
   int32 *sampsPerChanWritten, uInt32 *value, uInt32 *data };
 %apply  char *OUTPUT { char errorString[] };
-%apply  float *OUTPUT { float64 *value };
+%apply  double *OUTPUT { float64 *value };
 
 // Note that TaskHandle is typedef'd as uInt32*
 // so here &someTask is equivalent to a TaskHandle.
@@ -165,8 +165,11 @@ static VALUE dmxErrorCode(VALUE self)
   };
 
   // free array allocated by above
-  %typemap(freearg) (float64 writeArray[]) {
-    // *** typemap(freearg) (float64 writeArray[])
+  %typemap(freearg) float64 writeArray[],
+               uInt8 writeArray[],
+               uInt32 writeArray[]
+  {
+    // *** typemap(freearg) (<T> writeArray[])
     if ($1) free($1);
   };
 
@@ -174,7 +177,8 @@ static VALUE dmxErrorCode(VALUE self)
   %typemap(in) (float64 readArray[], uInt32 arraySizeInSamps),
                (uInt8 readArray[], uInt32 arraySizeInSamps),
                (uInt16 readArray[], uInt32 arraySizeInSamps),
-               (uInt32 readArray[], uInt32 arraySizeInSamps) {
+               (uInt32 readArray[], uInt32 arraySizeInSamps)
+  {
     // *** BEGIN typemap(in) (<T> readArray[], uInt32 arraySizeInSamps)
     long len;
 
@@ -196,7 +200,7 @@ static VALUE dmxErrorCode(VALUE self)
                (uInt8 readArray[], uInt32 arraySizeInSamps),
                (uInt16 readArray[], uInt32 arraySizeInSamps),
                (uInt32 readArray[], uInt32 arraySizeInSamps) {
-    // *** typemap(freearg) (float64 readArray[], uInt32 arraySizeInSamps)
+    // *** typemap(freearg) (<T> readArray[], uInt32 arraySizeInSamps)
     if ($1) free($1);
   };
 

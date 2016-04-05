@@ -50,7 +50,7 @@ begin
 
   while true
     startTime = Time.now
-    (samplesPerChanRead) = task.write_analog_f64(samplesPerChan,
+    samplesPerChanRead = task.write_analog_f64(samplesPerChan,
                 0, timeout, fillMode, data)
     endTime = Time.now
           rate = samplesPerChanRead/(endTime-startTime)

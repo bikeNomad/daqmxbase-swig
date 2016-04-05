@@ -87,9 +87,10 @@ NI_HEADER:=$(subst /\,,$(patsubst %,%\,$(NI_HEADER)/))
 # -debug_typemap -Wall -w322
 # -dump_typedef -dump_classes
 # -features autodoc
-SWIG_OPTS+= -ruby -Fstandard
+SWIG_OPTS+= -ruby -Fstandard -debug_typemap -Wall -w322 -dump_typedef -dump_classes -features autodoc
 CPPFLAGS+= -I \"$(NI_INC_DIR)\"
-CFLAGS+= -g -Wall -Wno-redundant-decls
+CFLAGS+= -ggdb -Wall -Wno-redundant-decls
+LDFLAGS+= -ggdb3
 
 MODULE=daqmxbase
 FEATURE=Daqmxbase
